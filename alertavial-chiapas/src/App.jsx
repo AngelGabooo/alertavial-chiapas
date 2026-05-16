@@ -141,7 +141,7 @@ function MockPhone() {
               <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
                 <AlertTriangleIcon />
               </div>
-              <span className="text-white font-bold text-sm">AlertaVial</span>
+              <span className="text-white font-bold text-sm">BACHI</span>
               <div className="ml-auto w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function App() {
         'Actualizar estado: pendiente → en proceso → resuelto',
         'Visualizar mapa de calor de incidencias',
         'Exportar reportes por período y zona en CSV',
-        'Gestionar usuarios reportadores (bloquear spam)',
+        'Gestionar usuarios reportadores',
       ]
     },
     visitante: {
@@ -271,7 +271,7 @@ export default function App() {
               <AlertTriangleIcon />
             </div>
             <span className="font-black text-lg tracking-tight">
-              Alerta<span className="text-orange-400">Vial</span>
+              Ba<span className="text-orange-400">chi</span>
             </span>
             <span className="text-xs text-slate-500 font-medium hidden sm:block">Chiapas</span>
           </div>
@@ -283,12 +283,7 @@ export default function App() {
               </button>
             ))}
           </div>
-          <button
-            onClick={() => scrollTo('contacto')}
-            className="hidden md:block px-4 py-2 bg-orange-500 hover:bg-orange-400 text-white text-sm font-semibold rounded-xl transition-colors shadow-lg shadow-orange-500/20"
-          >
-            Ver Demo
-          </button>
+         
           {/* Hamburger */}
           <button className="md:hidden text-slate-400" onClick={() => setMenuOpen(!menuOpen)}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
@@ -320,10 +315,9 @@ export default function App() {
               Proyecto Integrador · 9° Cuatrimestre · Mayo–Agosto 2026
             </div>
             <h1 className="text-5xl md:text-6xl font-black leading-tight tracking-tight mb-4">
-              Alerta
-              <span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">Vial</span>
+              Ba
+              <span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">chi</span>
               <br />
-              <span className="text-3xl md:text-4xl font-bold text-slate-300">Chiapas</span>
             </h1>
             <p className="text-slate-400 text-lg leading-relaxed mb-8 max-w-lg">
               Plataforma ciudadana de reporte de incidencias viales con <strong className="text-white">geolocalización en tiempo real</strong> — conectando a ciudadanos con autoridades para vías más seguras.
@@ -425,7 +419,7 @@ export default function App() {
               <span className="text-orange-400">servicio de Chiapas</span>
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto">
-              Una app multiplataforma (Android + iOS) que democratiza la participación ciudadana y provee a las autoridades un panel de gestión basado en datos en tiempo real.
+              Una app multiplataforma (Android) que democratiza la participación ciudadana y provee a las autoridades un panel de gestión basado en datos en tiempo real.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -501,47 +495,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== TECNOLOGÍAS ===== */}
-      <section id="tecnologias" className="py-24 bg-white/[0.02] border-y border-white/5">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold mb-4">
-              ⚙️ Stack tecnológico
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4">
-              Construida con las<br />
-              <span className="text-purple-400">mejores herramientas</span>
-            </h2>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {technologies.map((t, i) => (
-              <TechBadge key={i} {...t} />
-            ))}
-          </div>
-          {/* Architecture diagram */}
-          <div className="mt-12 grid md:grid-cols-3 gap-6">
-            {[
-              { title: 'Frontend / Mobile', icon: '📱', items: ['Flutter (Android + iOS)', 'Dart', 'Geolocator pkg', 'Image Picker pkg'], color: 'border-cyan-500/20 bg-cyan-500/5' },
-              { title: 'Backend / Cloud', icon: '☁️', items: ['Firebase Firestore', 'Firebase Auth', 'Firebase Storage', 'Cloud Functions'], color: 'border-orange-500/20 bg-orange-500/5' },
-              { title: 'APIs Externas', icon: '🗺️', items: ['Google Maps SDK', 'Maps Heatmap Layer', 'FCM Push Notifications', 'Geolocation API'], color: 'border-blue-500/20 bg-blue-500/5' },
-            ].map((layer, i) => (
-              <div key={i} className={`rounded-2xl border p-6 ${layer.color}`}>
-                <div className="text-2xl mb-3">{layer.icon}</div>
-                <h4 className="font-bold text-white mb-3">{layer.title}</h4>
-                <ul className="space-y-1.5">
-                  {layer.items.map((item, j) => (
-                    <li key={j} className="text-slate-400 text-sm flex items-center gap-2">
-                      <div className="w-1 h-1 bg-slate-500 rounded-full"></div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ===== FLUJO ===== */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6">
@@ -583,11 +536,11 @@ export default function App() {
       <section className="py-24 bg-white/[0.02] border-y border-white/5">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">¿Por qué AlertaVial?</h2>
+            <h2 className="text-4xl font-black mb-4">¿Por qué Bachi?</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: '⚙️', color: 'from-cyan-500 to-blue-500', title: 'Técnico', desc: 'Flutter permite una única base de código para Android e iOS. Firebase elimina la necesidad de servidor propio y garantiza escalabilidad desde día uno.' },
+              { icon: '⚙️', color: 'from-cyan-500 to-blue-500', title: 'Técnico', desc: 'Flutter permite una única base de código para Android. Firebase elimina la necesidad de servidor propio y garantiza escalabilidad desde día uno.' },
               { icon: '🤝', color: 'from-orange-500 to-amber-500', title: 'Social', desc: 'Chiapas ocupa los últimos lugares en infraestructura vial. La participación ciudadana es una estrategia reconocida para reducir accidentes y mejorar la respuesta gubernamental.' },
               { icon: '🏛️', color: 'from-green-500 to-teal-500', title: 'Institucional', desc: 'Se alinea con los principios de gobierno abierto y transparencia, generando datos geolocalizados para la planeación municipal y la rendición de cuentas.' },
             ].map((j, i) => (
@@ -620,7 +573,7 @@ export default function App() {
           <div className="grid sm:grid-cols-3 gap-4 mb-10 text-sm">
             {[
               { label: 'Categoría', value: 'Social / Impacto comunitario' },
-              { label: 'Plataforma', value: 'Android + iOS (Flutter)' },
+              { label: 'Plataforma', value: 'Android (Flutter)' },
               { label: 'Backend', value: 'Firebase (Google Cloud)' },
             ].map((d, i) => (
               <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4">
@@ -639,12 +592,11 @@ export default function App() {
             <div className="w-6 h-6 rounded-md bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center">
               <AlertTriangleIcon />
             </div>
-            <span className="font-bold text-slate-300">AlertaVial Chiapas</span>
+            <span className="font-bold text-slate-300">Bachi Chiapas</span>
           </div>
           <p>Proyecto Integrador · 9° Cuatrimestre · Mayo–Agosto 2026</p>
           <div className="flex items-center gap-2">
             <FlameIcon />
-            <span>Hecho con Flutter + Firebase</span>
           </div>
         </div>
       </footer>
