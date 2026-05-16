@@ -267,6 +267,12 @@ export default function App() {
       <nav className="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
+            {/* Logo añadido aquí */}
+            <img 
+              src="/img/bachii.png" 
+              alt="Bachi Logo" 
+              className="w-8 h-8 rounded-lg object-cover shadow-lg shadow-orange-500/20"
+            />
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center shadow-lg shadow-orange-500/30">
               <AlertTriangleIcon />
             </div>
@@ -309,10 +315,18 @@ export default function App() {
       <section className="relative min-h-screen flex items-center pt-20">
         <div className="max-w-6xl mx-auto px-6 w-full grid md:grid-cols-2 gap-12 items-center py-20">
           <div>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold mb-6">
-              <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse"></div>
-              Proyecto Integrador · 9° Cuatrimestre · Mayo–Agosto 2026
+            {/* Logo añadido aquí también */}
+            <div className="flex items-center gap-3 mb-4">
+              <img 
+                src="/img/bachii.png" 
+                alt="Bachi Logo" 
+                className="w-12 h-12 rounded-xl shadow-2xl border border-orange-500/30 object-cover"
+              />
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold">
+                <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse"></div>
+                Proyecto Integrador · 9° Cuatrimestre · Mayo–Agosto 2026
+              </div>
             </div>
             <h1 className="text-5xl md:text-6xl font-black leading-tight tracking-tight mb-4">
               Ba
@@ -556,39 +570,63 @@ export default function App() {
         </div>
       </section>
 
-      {/* ===== EQUIPO / CTA ===== */}
-      <section id="equipo" className="py-24">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold mb-6">
-            <UsersIcon /> Proyecto Integrador
-          </div>
-          <h2 className="text-4xl md:text-5xl font-black mb-4">
-            Construyendo el futuro<br />
-            <span className="text-orange-400">vial de Chiapas</span>
-          </h2>
-          <p className="text-slate-400 max-w-xl mx-auto mb-8">
-            Proyecto Integrador de 3er Ciclo — 9° Cuatrimestre<br />
-            Periodo: <strong className="text-white">Mayo – Agosto 2026</strong>
-          </p>
-          <div className="grid sm:grid-cols-3 gap-4 mb-10 text-sm">
-            {[
-              { label: 'Categoría', value: 'Social / Impacto comunitario' },
-              { label: 'Plataforma', value: 'Android (Flutter)' },
-              { label: 'Backend', value: 'Firebase (Google Cloud)' },
-            ].map((d, i) => (
-              <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4">
-                <div className="text-slate-500 text-xs mb-1">{d.label}</div>
-                <div className="text-white font-semibold">{d.value}</div>
-              </div>
-            ))}
-          </div>
+    {/* ===== EQUIPO / CTA ===== */}
+<section id="equipo" className="py-24">
+  <div className="max-w-4xl mx-auto px-6 text-center">
+    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold mb-6">
+      <UsersIcon /> Proyecto Integrador
+    </div>
+    <h2 className="text-4xl md:text-5xl font-black mb-4">
+      Construyendo el futuro<br />
+      <span className="text-orange-400">vial de Chiapas</span>
+    </h2>
+    <p className="text-slate-400 max-w-xl mx-auto mb-8">
+      Proyecto Integrador de 3er Ciclo — 9° Cuatrimestre<br />
+      Periodo: <strong className="text-white">Mayo – Agosto 2026</strong>
+    </p>
+    <div className="grid sm:grid-cols-3 gap-4 mb-10 text-sm">
+      {[
+        { label: 'Categoría', value: 'Social / Impacto comunitario' },
+        { label: 'Plataforma', value: 'Android (Flutter)' },
+        { label: 'Backend', value: 'Firebase (Google Cloud)' },
+      ].map((d, i) => (
+        <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4">
+          <div className="text-slate-500 text-xs mb-1">{d.label}</div>
+          <div className="text-white font-semibold">{d.value}</div>
         </div>
-      </section>
+      ))}
+    </div>
+    
+    {/* Integrantes - versión simple */}
+    <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+      <h3 className="text-xl font-bold mb-4 text-orange-400">Equipo de Desarrollo</h3>
+      <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+        {[
+          'Angel Gabriel Garcia Samayoa',
+          'Samuel Morales Rodriguez',
+          'Martin Eduardo Estrada Garcia',
+         
+        ].map((nombre, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+            <span className="text-slate-300 text-sm">{nombre}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* ===== FOOTER ===== */}
       <footer id="contacto" className="border-t border-white/5 py-10">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-500 text-sm">
           <div className="flex items-center gap-2">
+            {/* Logo añadido en el footer */}
+            <img 
+              src="/img/bachii.png" 
+              alt="Bachi Logo" 
+              className="w-6 h-6 rounded-md object-cover"
+            />
             <div className="w-6 h-6 rounded-md bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center">
               <AlertTriangleIcon />
             </div>
