@@ -579,7 +579,7 @@ export default function App() {
             <h4 className="text-sm font-bold mb-4 text-slate-400 uppercase tracking-widest">Equipo de Desarrollo</h4>
             <div className="grid sm:grid-cols-3 gap-2 text-xs text-slate-300">
               <div>Angel Gabriel Garcia Samayoa</div>
-              <div>Samuel Morales Rodriguez</div>
+              <div>Samuel Morales Rodríguez</div>
               <div>Martin Eduardo Estrada Garcia</div>
             </div>
           </div>
