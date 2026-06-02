@@ -56,8 +56,23 @@ const FlameIcon = () => (
     <path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 3z"/>
   </svg>
 )
+const DollarIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
+    <line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+  </svg>
+)
+const TargetIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
+    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+  </svg>
+)
+const CpuIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
+    <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="15" x2="23" y2="15"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="15" x2="4" y2="15"/>
+  </svg>
+)
 
-// ---- Componentes ----
+// ---- Componentes Auxiliares ----
 function AnimatedCounter({ target, suffix = '' }) {
   const [count, setCount] = useState(0)
   const ref = useRef(null)
@@ -100,21 +115,31 @@ function FeatureCard({ icon, title, desc, delay }) {
   )
 }
 
-function TechBadge({ name, category, color }) {
-  return (
-    <div className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium ${color}`}>
-      <div className="w-2 h-2 rounded-full bg-current opacity-70"></div>
-      <span>{name}</span>
-      <span className="text-xs opacity-50">· {category}</span>
-    </div>
-  )
-}
-
 function RoadDamageIcon({ type }) {
   const icons = {
     bache: '🕳️', derrumbe: '⛰️', señalizacion: '🚧', inundacion: '🌊', otro: '⚠️'
   }
   return <span className="text-2xl">{icons[type]}</span>
+}
+
+function Accordion({ title, children }) {
+  const [isOpen, setIsOpen] = useState(false)
+  return (
+    <div className="border border-white/10 bg-slate-900/40 rounded-2xl overflow-hidden transition-colors hover:border-white/20">
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="w-full flex items-center justify-between p-5 text-left font-bold text-white hover:bg-white/5 transition-colors"
+      >
+        <span>{title}</span>
+        <svg className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+          <path d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-[1000px] border-t border-white/5 p-5' : 'max-h-0'}`}>
+        {children}
+      </div>
+    </div>
+  )
 }
 
 function MockPhone() {
@@ -127,15 +152,10 @@ function MockPhone() {
 
   return (
     <div className="relative mx-auto w-[260px]">
-      {/* Glow */}
       <div className="absolute inset-0 bg-orange-500/20 blur-3xl rounded-full scale-150 pointer-events-none"></div>
-      {/* Phone frame */}
       <div className="relative bg-slate-900 border-2 border-slate-700 rounded-[36px] p-3 shadow-2xl">
-        {/* Notch */}
         <div className="mx-auto w-20 h-5 bg-slate-800 rounded-full mb-2"></div>
-        {/* Screen */}
         <div className="bg-slate-950 rounded-[24px] overflow-hidden">
-          {/* App header */}
           <div className="bg-gradient-to-r from-orange-600 to-amber-500 px-4 py-3">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
@@ -145,30 +165,19 @@ function MockPhone() {
               <div className="ml-auto w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             </div>
           </div>
-          {/* Map placeholder */}
           <div className="relative h-28 bg-slate-800 overflow-hidden">
-            {/* Grid lines simulating map */}
             <div className="absolute inset-0 opacity-20">
               {[...Array(8)].map((_, i) => (
-                <div key={i} className="absolute border-slate-500" style={{
-                  left: `${i * 14}%`, top: 0, bottom: 0, borderLeftWidth: 1
-                }}></div>
+                <div key={i} className="absolute border-slate-500" style={{ left: `${i * 14}%`, top: 0, bottom: 0, borderLeftWidth: 1 }}></div>
               ))}
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="absolute border-slate-500" style={{
-                  top: `${i * 20}%`, left: 0, right: 0, borderTopWidth: 1
-                }}></div>
+                <div key={i} className="absolute border-slate-500" style={{ top: `${i * 20}%`, left: 0, right: 0, borderTopWidth: 1 }}></div>
               ))}
             </div>
-            {/* Map pins */}
             <div className="absolute top-4 left-8 w-4 h-4 bg-red-500 rounded-full border-2 border-white shadow-lg animate-bounce" style={{ animationDelay: '0ms' }}></div>
             <div className="absolute top-10 right-10 w-4 h-4 bg-amber-500 rounded-full border-2 border-white shadow-lg animate-bounce" style={{ animationDelay: '300ms' }}></div>
             <div className="absolute bottom-4 left-1/2 w-4 h-4 bg-green-500 rounded-full border-2 border-white shadow-lg animate-bounce" style={{ animationDelay: '600ms' }}></div>
-            {/* Heat overlay */}
-            <div className="absolute top-2 left-4 w-16 h-16 bg-red-500/20 rounded-full blur-xl"></div>
-            <div className="absolute bottom-2 right-6 w-12 h-12 bg-orange-500/20 rounded-full blur-xl"></div>
           </div>
-          {/* Reports list */}
           <div className="p-3 space-y-2">
             {reports.map(r => (
               <div
@@ -185,14 +194,7 @@ function MockPhone() {
               </div>
             ))}
           </div>
-          {/* Bottom nav */}
-          <div className="flex justify-around py-2 border-t border-slate-800">
-            {['🗺️', '📋', '🔔', '👤'].map((icon, i) => (
-              <button key={i} className={`text-base p-1 rounded-lg ${i === 0 ? 'bg-orange-500/20' : ''}`}>{icon}</button>
-            ))}
-          </div>
         </div>
-        {/* Home indicator */}
         <div className="mx-auto w-16 h-1 bg-slate-600 rounded-full mt-2"></div>
       </div>
     </div>
@@ -213,430 +215,380 @@ export default function App() {
     ciudadano: {
       label: '👤 Ciudadano',
       items: [
-        'Registrarse e iniciar sesión',
-        'Fotografiar y reportar incidencias con categoría',
-        'Ver ubicación del daño en el mapa interactivo',
-        'Dar seguimiento al estado de sus reportes',
-        'Recibir notificaciones push al cambiar estado',
-        'Visualizar mapa de incidencias en su zona',
+        'Registrarse e iniciar sesión mediante correo o teléfono.',
+        'Reportar incidencias viales de forma geolocalizada.',
+        'Tomar fotografías del daño como evidencia física.',
+        'Consultar el estado de sus reportes en tiempo real.',
+        'Visualizar incidencias activas en el mapa de su zona.',
+        'Recibir notificaciones push para el seguimiento institucional.',
       ]
     },
     admin: {
       label: '🛡️ Autoridad',
       items: [
-        'Panel de administración web / in-app',
-        'Ver todos los reportes por zona y categoría',
-        'Actualizar estado: pendiente → en proceso → resuelto',
-        'Visualizar mapa de calor de incidencias',
-        'Exportar reportes por período y zona en CSV',
-        'Gestionar usuarios reportadores',
+        'Gestionar reportes ciudadanos de forma organizada.',
+        'Actualizar el estado de incidencias (Pendiente / En proceso / Resuelto).',
+        'Visualizar estadísticas generales del municipio.',
+        'Filtrar reportes detalladamente por categoría y municipio.',
+        'Exportar información de reportes en formato compatible CSV.',
       ]
     },
     visitante: {
       label: '🌐 Visitante',
       items: [
-        'Consultar el mapa público sin registrarse',
-        'Ver categoría y foto de cada reporte',
-        'Conocer el estado de la infraestructura vial',
+        'Consultar incidencias viales activas sin necesidad de registro.',
+        'Visualizar fotografías y categorías de daños reportados.',
+        'Consultar el estado general de las vialidades públicas de la región.',
       ]
     }
   }
 
-  const technologies = [
-    { name: 'Flutter / Dart', category: 'Mobile', color: 'border-cyan-500/40 text-cyan-300 bg-cyan-500/10' },
-    { name: 'Firebase Firestore', category: 'Database', color: 'border-orange-500/40 text-orange-300 bg-orange-500/10' },
-    { name: 'Firebase Auth', category: 'Seguridad', color: 'border-amber-500/40 text-amber-300 bg-amber-500/10' },
-    { name: 'Firebase Storage', category: 'Storage', color: 'border-yellow-500/40 text-yellow-300 bg-yellow-500/10' },
-    { name: 'Cloud Messaging', category: 'Push', color: 'border-green-500/40 text-green-300 bg-green-500/10' },
-    { name: 'Google Maps API', category: 'Mapas', color: 'border-blue-500/40 text-blue-300 bg-blue-500/10' },
-    { name: 'Geolocator', category: 'GPS', color: 'border-purple-500/40 text-purple-300 bg-purple-500/10' },
-    { name: 'Image Picker', category: 'Multimedia', color: 'border-pink-500/40 text-pink-300 bg-pink-500/10' },
-    { name: 'Cloud Functions', category: 'Serverless', color: 'border-red-500/40 text-red-300 bg-red-500/10' },
-  ]
-
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans overflow-x-hidden">
-      {/* Fondo global con textura */}
+      {/* Fondo global */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-amber-500/8 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-0 w-64 h-64 bg-red-700/8 rounded-full blur-3xl"></div>
       </div>
 
       {/* ===== NAV ===== */}
       <nav className="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {/* Logo añadido aquí */}
-            <img 
-              src="/img/bachii.png" 
-              alt="Bachi Logo" 
-              className="w-8 h-8 rounded-lg object-cover shadow-lg shadow-orange-500/20"
-            />
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center shadow-lg shadow-orange-500/30">
-              <AlertTriangleIcon />
-            </div>
-            <span className="font-black text-lg tracking-tight">
-              Ba<span className="text-orange-400">chi</span>
-            </span>
+            <img src="/img/bachii.png" alt="Bachi" className="w-8 h-8 rounded-lg object-cover" />
+            <span className="font-black text-lg tracking-tight">Ba<span className="text-orange-400">chi</span></span>
             <span className="text-xs text-slate-500 font-medium hidden sm:block">Chiapas</span>
           </div>
-          {/* Desktop links */}
           <div className="hidden md:flex items-center gap-6 text-sm text-slate-400">
-            {['problema', 'solucion', 'funcionalidades', 'tecnologias', 'equipo'].map(s => (
+            {['problema', 'objetivos', 'competencia', 'funcionalidades', 'arquitectura', 'ingresos'].map(s => (
               <button key={s} onClick={() => scrollTo(s)} className="hover:text-orange-400 transition-colors capitalize">
-                {s === 'solucion' ? 'Solución' : s === 'tecnologias' ? 'Tecnologías' : s.charAt(0).toUpperCase() + s.slice(1)}
+                {s === 'problema' ? 'Problema' : s === 'funcionalidades' ? 'Módulos' : s === 'ingresos' ? 'Monetización' : s}
               </button>
             ))}
           </div>
-         
-          {/* Hamburger */}
           <button className="md:hidden text-slate-400" onClick={() => setMenuOpen(!menuOpen)}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6">
-              {menuOpen
-                ? <path d="M18 6L6 18M6 6l12 12"/>
-                : <><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></>
-              }
+              {menuOpen ? <path d="M18 6L6 18M6 6l12 12"/> : <path d="M3 12h18M3 6h18M3 18h18"/>}
             </svg>
           </button>
         </div>
-        {menuOpen && (
-          <div className="md:hidden px-6 pb-4 space-y-2 bg-slate-950/95">
-            {['problema', 'solucion', 'funcionalidades', 'tecnologias', 'equipo'].map(s => (
-              <button key={s} onClick={() => scrollTo(s)} className="block w-full text-left py-2 text-slate-300 hover:text-orange-400 transition-colors capitalize">
-                {s}
-              </button>
-            ))}
-          </div>
-        )}
       </nav>
 
       {/* ===== HERO ===== */}
       <section className="relative min-h-screen flex items-center pt-20">
         <div className="max-w-6xl mx-auto px-6 w-full grid md:grid-cols-2 gap-12 items-center py-20">
           <div>
-            {/* Logo añadido aquí también */}
-            <div className="flex items-center gap-3 mb-4">
-              <img 
-                src="/img/bachii.png" 
-                alt="Bachi Logo" 
-                className="w-12 h-12 rounded-xl shadow-2xl border border-orange-500/30 object-cover"
-              />
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold">
-                <div className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-pulse"></div>
-                Proyecto Integrador · 9° Cuatrimestre · Mayo–Agosto 2026
-              </div>
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              <span className="px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold rounded-full">
+                Eje: Social
+              </span>
+              <span className="px-3 py-1 bg-white/5 border border-white/10 text-slate-400 text-xs rounded-full">
+                Proyecto Integrador · Mayo–Agosto 2026
+              </span>
             </div>
             <h1 className="text-5xl md:text-6xl font-black leading-tight tracking-tight mb-4">
-              Ba
-              <span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">chi</span>
-              <br />
+              Ba<span className="bg-gradient-to-r from-orange-400 to-amber-300 bg-clip-text text-transparent">chi</span>
             </h1>
-            <p className="text-slate-400 text-lg leading-relaxed mb-8 max-w-lg">
-              Plataforma ciudadana de reporte de incidencias viales con <strong className="text-white">geolocalización en tiempo real</strong> — conectando a ciudadanos con autoridades para vías más seguras.
+            <p className="text-slate-400 text-base leading-relaxed mb-8">
+              Plataforma ciudadana de reporte de incidencias viales con geolocalización. Diseñada para transformar la infraestructura vial mediante el uso de tecnología móvil moderna.
             </p>
-            <div className="flex flex-wrap gap-3 mb-10">
-              <button
-                onClick={() => scrollTo('solucion')}
-                className="px-6 py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold rounded-xl transition-all shadow-xl shadow-orange-500/25 hover:shadow-orange-500/40 hover:-translate-y-0.5 duration-200"
-              >
-                Explorar la App
+            <div className="flex flex-wrap gap-3">
+              <button onClick={() => scrollTo('objetivos')} className="px-6 py-3 bg-orange-500 hover:bg-orange-400 text-white font-bold rounded-xl transition-all shadow-xl shadow-orange-500/25">
+                Ver Propuesta Académica
               </button>
-              <button
-                onClick={() => scrollTo('problema')}
-                className="px-6 py-3 border border-white/10 hover:border-white/30 text-slate-300 hover:text-white font-semibold rounded-xl transition-all duration-200 flex items-center gap-2"
-              >
-                Ver Problemática <ArrowDownIcon />
+              <button onClick={() => scrollTo('competencia')} className="px-6 py-3 border border-white/10 hover:border-white/30 text-slate-300 rounded-xl transition-all">
+                Ventaja Competitiva
               </button>
-            </div>
-            {/* Tech pills */}
-            <div className="flex flex-wrap gap-2">
-              {['Flutter', 'Firebase', 'Google Maps', 'Dart'].map(t => (
-                <span key={t} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-slate-400">{t}</span>
-              ))}
             </div>
           </div>
-          {/* Phone mockup */}
           <div className="flex justify-center">
             <MockPhone />
           </div>
         </div>
-        {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-600 animate-bounce">
-          <ArrowDownIcon />
-        </div>
       </section>
 
-      {/* ===== STATS ===== */}
-      <section className="py-16 border-y border-white/5 bg-white/[0.02]">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { value: 122, suffix: '', label: 'Municipios en Chiapas' },
-            { value: 35, suffix: '%', label: 'Carreteras en mal estado' },
-            { value: 5, suffix: '', label: 'Tipos de incidencias' },
-            { value: 3, suffix: '', label: 'Tipos de usuario' },
-          ].map((s, i) => (
-            <div key={i} className="text-center">
-              <div className="text-4xl font-black text-orange-400 mb-1">
-                <AnimatedCounter target={s.value} suffix={s.suffix} />
-              </div>
-              <p className="text-slate-500 text-sm">{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ===== PROBLEMÁTICA ===== */}
-      <section id="problema" className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold mb-4">
-              <AlertTriangleIcon /> El Problema
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4">
-              Una brecha entre<br />
-              <span className="text-red-400">ciudadanos y gobierno</span>
-            </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Chiapas lidera el rezago en infraestructura vial a nivel nacional. Las lluvias, deslaves y falta de mantenimiento generan riesgos constantes — pero no existe un canal digital eficaz para reportarlos.
-            </p>
+      {/* ===== PLANTEAMIENTO DEL PROBLEMA ===== */}
+      <section id="problema" className="py-24 bg-white/[0.02] border-y border-white/5">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold mb-4">
+            <AlertTriangleIcon /> Planteamiento del Problema
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          <h2 className="text-3xl md:text-4xl font-black mb-6">El rezago en infraestructura vial</h2>
+          <div className="space-y-4 text-slate-300 text-sm leading-relaxed">
+            <p>
+              <strong className="text-white">Chiapas</strong> es uno de los estados con mayor rezago en infraestructura vial de México. Las lluvias torrenciales, los deslaves y la falta de mantenimiento oportuno generan baches, derrumbes, hundimientos y señalización deteriorada que representan riesgos constantes para la movilidad y seguridad de la población.
+            </p>
+            <p>
+              El problema central radica en que los ciudadanos no cuentan con un canal digital accesible para reportar estas incidencias de forma geolocalizada y en tiempo real. Los mecanismos actuales de reporte son burocráticos, presenciales o ineficaces, tales como llamadas telefónicas sin seguimiento, formularios físicos o publicaciones en redes sociales que no generan acciones institucionales verificables.
+            </p>
+            <p>
+              Esta falta de comunicación entre ciudadanos y autoridades provoca reparaciones tardías, incremento de accidentes y mala priorización de recursos destinados al mantenimiento vial. Además, disminuye la confianza ciudadana en los mecanismos de participación pública.
+            </p>
+            <div className="p-4 bg-orange-500/10 border border-orange-500/20 rounded-xl text-orange-400 font-medium mt-6">
+              💡 <strong>Propuesta de solución:</strong> Se propone el desarrollo de una aplicación móvil que permita reportar incidencias viales de forma rápida, visual y geolocalizada, facilitando a las autoridades la gestión y priorización de las problemáticas detectadas.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== OBJETIVOS ===== */}
+      <section id="objetivos" className="py-24">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold mb-4">
+            <TargetIcon /> Estructura de Objetivos del Proyecto
+          </div>
+          <h2 className="text-3xl md:text-4xl font-black mb-8">Estructura Metodológica</h2>
+
+          {/* Objetivo General */}
+          <div className="bg-slate-900/60 border border-white/10 rounded-2xl p-6 mb-6">
+            <span className="text-xs font-bold text-orange-400 uppercase tracking-widest block mb-2">Objetivo General</span>
+            <p className="text-white text-base leading-relaxed font-medium">
+              <span className="text-orange-400 underline decoration-wavy">Desarrollar</span> una aplicación móvil multiplataforma para Android denominada Bachi, que permita a los ciudadanos reportar incidencias viales de forma geolocalizada y con evidencia fotográfica, facilitando a las autoridades municipales la gestión, seguimiento y priorización de dichas incidencias mediante información en tiempo real.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4 pt-4 border-t border-white/5 text-[11px] text-slate-500">
+              <div><strong className="text-slate-400">Acción:</strong> Desarrollar</div>
+              <div><strong className="text-slate-400">Objeto:</strong> App Móvil Bachi</div>
+              <div><strong className="text-slate-400">Herramientas:</strong> Flutter / Firebase</div>
+              <div><strong className="text-slate-400">Finalidad:</strong> Gestión y Priorización</div>
+            </div>
+          </div>
+
+          {/* Objetivos Específicos */}
+          <div className="space-y-3">
+            <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Objetivos Específicos (Fases de Desarrollo)</h3>
             {[
-              { icon: '📞', title: 'Reportes sin seguimiento', desc: 'Llamadas telefónicas que no generan ninguna acción institucional verificable ni registro de estado.' },
-              { icon: '🗂️', title: 'Burocracia presencial', desc: 'Formularios físicos y trámites en persona que desincentivan la participación ciudadana.' },
-              { icon: '🚗', title: 'Accidentes evitables', desc: 'Zonas con daños no reportados formalmente acumulan incidentes viales que podrían prevenirse.' },
-              { icon: '📊', title: 'Sin datos para priorizar', desc: 'Los recursos de mantenimiento se asignan sin información real sobre las zonas más críticas.' },
-            ].map((p, i) => (
-              <div key={i} className="flex gap-4 p-6 bg-red-500/5 border border-red-500/10 rounded-2xl hover:border-red-500/20 transition-colors">
-                <span className="text-3xl flex-shrink-0">{p.icon}</span>
-                <div>
-                  <h3 className="font-bold text-white mb-1">{p.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{p.desc}</p>
-                </div>
+              'Diseñar e implementar un módulo de registro e inicio de sesión de usuarios mediante correo electrónico o número telefónico.',
+              'Desarrollar un system de reportes con captura fotográfica, categorías de incidencias y geolocalización automática.',
+              'Integrar Google Maps para visualizar reportes activos mediante un mapa interactivo.',
+              'Implementar seguimiento del estado de los reportes mediante notificaciones push.',
+              'Construir un panel administrativo para la gestión y actualización de reportes.',
+              'Realizar pruebas de usabilidad con usuarios reales para validar la funcionalidad de la aplicación.'
+            ].map((obj, i) => (
+              <div key={i} className="flex gap-3 items-start p-3 bg-white/3 border border-white/5 rounded-xl text-slate-300 text-sm">
+                <span className="text-orange-400 font-bold">{i + 1}.</span>
+                <p>{obj}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== SOLUCIÓN ===== */}
-      <section id="solucion" className="py-24 bg-white/[0.02] border-y border-white/5">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-semibold mb-4">
-              <ShieldIcon /> La Solución
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4">
-              Tecnología cívica al<br />
-              <span className="text-orange-400">servicio de Chiapas</span>
-            </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
-              Una app multiplataforma (Android) que democratiza la participación ciudadana y provee a las autoridades un panel de gestión basado en datos en tiempo real.
-            </p>
+      {/* ===== COMPETENCIA Y VALOR AGREGADO ===== */}
+      <section id="competencia" className="py-24 bg-white/[0.02] border-y border-white/5">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-4">
+            📊 Análisis de Competencia
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { icon: <CameraIcon />, title: 'Reporta en segundos', desc: 'Foto + categoría + geolocalización GPS automática. Sin trámites burocráticos.' },
-              { icon: <MapPinIcon />, title: 'Mapa interactivo', desc: 'Visualiza todos los reportes activos con filtros por tipo, municipio y estado.' },
-              { icon: <BellIcon />, title: 'Notificaciones push', desc: 'El ciudadano recibe alertas cuando su reporte cambia de estado.' },
-              { icon: <BarChartIcon />, title: 'Mapa de calor', desc: 'Identifica zonas críticas para priorizar intervenciones de mantenimiento.' },
-            ].map((f, i) => (
-              <FeatureCard key={i} {...f} delay={i * 100} />
-            ))}
+          <h2 className="text-3xl md:text-4xl font-black mb-4">¿Contra qué competimos y qué ofrecemos?</h2>
+          <p className="text-slate-400 text-sm mb-8">Diferenciación estratégica de nuestra propuesta frente a soluciones actuales del mercado.</p>
+
+          <div className="overflow-x-auto rounded-2xl border border-white/10 bg-slate-900/60">
+            <table className="w-full text-left text-sm border-collapse">
+              <thead>
+                <tr className="bg-white/5 text-slate-300 border-b border-white/10">
+                  <th className="p-4 font-bold">Característica</th>
+                  <th className="p-4 font-bold text-red-400">Redes Sociales / Waze</th>
+                  <th className="p-4 font-bold text-amber-400">Plataformas CDMX (072)</th>
+                  <th className="p-4 font-bold text-emerald-400 bg-emerald-500/10">Bachi (Nuestra App)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5 text-slate-300">
+                <tr>
+                  <td className="p-4 font-semibold text-white">Geolocalización exacta</td>
+                  <td className="p-4 text-xs text-slate-400">Sí (Waze) / No (Redes)</td>
+                  <td className="p-4 text-xs text-slate-400">Manual / Burocrática</td>
+                  <td className="p-4 text-xs text-white font-medium bg-emerald-500/5">Automática mediante GPS</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold text-white">Evidencia fotográfica</td>
+                  <td className="p-4 text-xs text-slate-400">Informal</td>
+                  <td className="p-4 text-xs text-slate-400">No obligatoria / Opcional</td>
+                  <td className="p-4 text-xs text-white font-medium bg-emerald-500/5">Captura directa in-app</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold text-white">Seguimiento Institucional</td>
+                  <td className="p-4 text-xs text-red-400">Nulo (Solo es denuncia)</td>
+                  <td className="p-4 text-xs text-slate-400">Lento vía folios web</td>
+                  <td className="p-4 text-xs text-white font-medium bg-emerald-500/5">Notificaciones Push Directas</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-semibold text-white">Panel para Municipios</td>
+                  <td className="p-4 text-xs text-slate-400">No disponible</td>
+                  <td className="p-4 text-xs text-slate-400">Sistemas heredados opacos</td>
+                  <td className="p-4 text-xs text-white font-medium bg-emerald-500/5">Panel SaaS y Estadísticas Avanzadas</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4 mt-6">
+            <div className="p-5 border border-white/5 bg-slate-900/40 rounded-xl">
+              <h4 className="font-bold text-white mb-2 text-sm">❌ El Vacío en la Competencia</h4>
+              <p className="text-slate-400 text-xs leading-relaxed">
+                Las apps comerciales de navegación (Waze) alertan del bache al usuario pero no notifican a la autoridad. Las apps gubernamentales existentes están centralizadas en grandes urbes y no se adaptan al entorno geográfico ni institucional de los municipios de Chiapas.
+              </p>
+            </div>
+            <div className="p-5 border border-emerald-500/20 bg-emerald-500/5 rounded-xl">
+              <h4 className="font-bold text-emerald-400 mb-2 text-sm">✨ Nuestro Valor Agregado</h4>
+              <p className="text-slate-400 text-xs leading-relaxed">
+                Bachi cierra el ciclo completo: empodera al ciudadano con un canal intuitivo y provee a los ayuntamientos de herramientas analíticas organizadas (paneles estadísticos, bases exportables) para optimizar recursos de bacheo.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ===== FUNCIONALIDADES ===== */}
+      {/* ===== ALCANCES / PERFILES DE USUARIO ===== */}
       <section id="funcionalidades" className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-4">
-              <SmartphoneIcon /> Funcionalidades
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black mb-4">
-              Diseñada para <span className="text-blue-400">todos</span>
-            </h2>
-            <p className="text-slate-400 max-w-xl mx-auto">Tres perfiles de usuario con acceso adaptado a sus necesidades.</p>
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-4">
+            <SmartphoneIcon /> Alcances y Usuarios
           </div>
-          {/* Tabs */}
-          <div className="flex justify-center gap-2 mb-8 flex-wrap">
+          <h2 className="text-3xl md:text-4xl font-black mb-4">Roles de Usuario Disponibles</h2>
+          <p className="text-slate-400 text-sm mb-8">Definición de permisos y acciones permitidas para cada perfil dentro de la plataforma.</p>
+
+          <div className="flex gap-2 mb-6 border-b border-white/10 pb-2">
             {Object.entries(userTabs).map(([key, tab]) => (
               <button
                 key={key}
                 onClick={() => setActiveTab(key)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${activeTab === key
-                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20'
-                  : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'}`}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${activeTab === key ? 'bg-orange-500 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
               >
                 {tab.label}
               </button>
             ))}
           </div>
-          <div className="max-w-2xl mx-auto bg-white/5 border border-white/10 rounded-2xl p-6">
-            <ul className="space-y-3">
+
+          <div className="bg-slate-900/50 border border-white/10 rounded-2xl p-6">
+            <ul className="grid sm:grid-cols-2 gap-3">
               {userTabs[activeTab].items.map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <CheckIcon />
-                  </div>
-                  <span className="text-slate-300 text-sm leading-relaxed">{item}</span>
+                <li key={i} className="flex items-start gap-2 text-xs text-slate-300 leading-relaxed">
+                  <div className="w-4 h-4 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold">✓</div>
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>
           </div>
-
-          {/* Tipos de incidencia */}
-          <div className="mt-16">
-            <h3 className="text-center text-2xl font-bold mb-8">Tipos de incidencia reportables</h3>
-            <div className="flex flex-wrap justify-center gap-4">
-              {[
-                { type: 'bache', label: 'Bache', color: 'border-red-500/30 bg-red-500/5' },
-                { type: 'derrumbe', label: 'Derrumbe', color: 'border-amber-500/30 bg-amber-500/5' },
-                { type: 'señalizacion', label: 'Señalización', color: 'border-yellow-500/30 bg-yellow-500/5' },
-                { type: 'inundacion', label: 'Inundación', color: 'border-blue-500/30 bg-blue-500/5' },
-                { type: 'otro', label: 'Otro', color: 'border-slate-500/30 bg-slate-500/5' },
-              ].map(({ type, label, color }) => (
-                <div key={type} className={`flex items-center gap-3 px-5 py-3 rounded-2xl border ${color}`}>
-                  <RoadDamageIcon type={type} />
-                  <span className="text-white font-medium">{label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* ===== FLUJO ===== */}
-      <section className="py-24">
+      {/* ===== ARQUITECTURA TÉCNICA (MÓDULOS DEL PROYECTO) ===== */}
+      <section id="arquitectura" className="py-24 bg-slate-900/20 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">¿Cómo funciona?</h2>
-            <p className="text-slate-400">El ciclo completo de un reporte ciudadano</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-4">
+            <CpuIcon /> Estructura del Software
           </div>
-          <div className="relative">
-            {/* Line */}
-            <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-orange-500 via-amber-500 to-green-500 hidden md:block"></div>
-            <div className="space-y-8">
-              {[
-                { num: '01', icon: '📸', title: 'El ciudadano detecta una incidencia', desc: 'Abre la app, toma una foto y selecciona la categoría del daño (bache, derrumbe, señalización, etc.).' },
-                { num: '02', icon: '📍', title: 'Geolocalización automática', desc: 'El GPS del dispositivo captura la ubicación exacta. El ciudadano puede ajustar el pin si lo necesita.' },
-                { num: '03', icon: '📤', title: 'Reporte enviado con folio', desc: 'La incidencia se sube a Firebase con foto, coordenadas, categoría y un número de folio único.' },
-                { num: '04', icon: '🗺️', title: 'Aparece en el mapa en tiempo real', desc: 'El reporte es visible para todos los usuarios en el mapa interactivo, con filtros por categoría y zona.' },
-                { num: '05', icon: '🛠️', title: 'La autoridad gestiona el reporte', desc: 'El administrador actualiza el estado: Pendiente → En Proceso → Resuelto desde el panel.' },
-                { num: '06', icon: '✅', title: 'El ciudadano recibe notificación', desc: 'Push notification al dispositivo informando el cambio de estado de su reporte.' },
-              ].map((step, i) => (
-                <div key={i} className="flex gap-6 items-start pl-0 md:pl-14 relative">
-                  <div className="absolute left-0 top-3 w-12 h-12 rounded-full bg-slate-900 border-2 border-orange-500 flex items-center justify-center text-orange-400 font-black text-xs hidden md:flex">
-                    {step.num}
-                  </div>
-                  <div className="flex gap-4 bg-white/3 border border-white/8 rounded-2xl p-5 w-full hover:bg-white/5 transition-colors">
-                    <span className="text-2xl flex-shrink-0">{step.icon}</span>
-                    <div>
-                      <h4 className="font-bold text-white mb-1">{step.title}</h4>
-                      <p className="text-slate-400 text-sm leading-relaxed">{step.desc}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <h2 className="text-3xl md:text-4xl font-black mb-4">Módulos del Sistema</h2>
+          <p className="text-slate-400 text-sm mb-8">Desglose integral de los componentes de código que conforman el ecosistema de Bachi.</p>
+
+          <div className="space-y-3">
+            <Accordion title="🔒 Módulo de Autenticación">
+              <ul className="list-disc list-inside text-xs text-slate-400 space-y-1">
+                <li>Registro de usuarios mediante correo electrónico.</li>
+                <li>Inicio de sesión seguro para resguardo de identidad.</li>
+                <li>Flujo de recuperación de contraseñas automatizado.</li>
+              </ul>
+            </Accordion>
+            <Accordion title="📸 Módulo de Reportes">
+              <ul className="list-disc list-inside text-xs text-slate-400 space-y-1">
+                <li>Captura de fotografías optimizada para dispositivos móviles.</li>
+                <li>Selección estructurada de categorías de daño vial.</li>
+                <li>Geolocalización automática a través de API nativa del dispositivo.</li>
+                <li>Descripción textual opcional y generación automática de folio único de reporte.</li>
+              </ul>
+            </Accordion>
+            <Accordion title="🗺️ Módulo de Mapa Interactivo">
+              <ul className="list-disc list-inside text-xs text-slate-400 space-y-1">
+                <li>Visualización de reportes geolocalizados directamente en el mapa.</li>
+                <li>Filtros avanzados organizados por categoría y estado actual.</li>
+                <li>Consulta detallada de incidencias y desglose de puntos activos.</li>
+              </ul>
+            </Accordion>
+            <Accordion title="🔔 Módulo de Seguimiento y Panel Administrativo">
+              <ul className="list-disc list-inside text-xs text-slate-400 space-y-1">
+                <li>Consulta de historial de reportes enviados por el usuario.</li>
+                <li>Notificaciones push en tiempo real ante cambios de estatus.</li>
+                <li>Gestión, actualización de estados, estadísticas generales y exportación de datos en formato CSV para la autoridad.</li>
+              </ul>
+            </Accordion>
           </div>
         </div>
       </section>
 
-      {/* ===== JUSTIFICACIÓN ===== */}
+      {/* ===== IMPACTO DEL PROYECTO ===== */}
       <section className="py-24 bg-white/[0.02] border-y border-white/5">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black mb-4">¿Por qué Bachi?</h2>
-          </div>
+        <div className="max-w-4xl mx-auto px-6">
+          <h3 className="text-center text-2xl font-black mb-12">Viabilidad e Impacto del Proyecto</h3>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: '⚙️', color: 'from-cyan-500 to-blue-500', title: 'Técnico', desc: 'Flutter permite una única base de código para Android. Firebase elimina la necesidad de servidor propio y garantiza escalabilidad desde día uno.' },
-              { icon: '🤝', color: 'from-orange-500 to-amber-500', title: 'Social', desc: 'Chiapas ocupa los últimos lugares en infraestructura vial. La participación ciudadana es una estrategia reconocida para reducir accidentes y mejorar la respuesta gubernamental.' },
-              { icon: '🏛️', color: 'from-green-500 to-teal-500', title: 'Institucional', desc: 'Se alinea con los principios de gobierno abierto y transparencia, generando datos geolocalizados para la planeación municipal y la rendición de cuentas.' },
-            ].map((j, i) => (
-              <div key={i} className="text-center p-8 bg-white/3 border border-white/8 rounded-3xl hover:border-white/15 transition-colors">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${j.color} flex items-center justify-center text-2xl mx-auto mb-4 shadow-lg`}>
-                  {j.icon}
-                </div>
-                <h3 className="font-black text-xl mb-3">{j.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{j.desc}</p>
+              { title: 'Técnico', desc: 'El uso de Flutter y Firebase permitirá desarrollar una aplicación moderna, escalable y multiplataforma con una sola base de código, reduciendo costos y tiempos.' },
+              { title: 'Social', desc: 'La aplicación facilitará la comunicación entre ciudadanos y autoridades, permitiendo reportar problemas viales de forma sencilla y accesible para todos.' },
+              { title: 'Institucional', desc: 'La plataforma proporcionará datos geolocalizados y estadísticas útiles para apoyar la toma de decisiones y la priorización de mantenimiento por ayuntamientos.' }
+            ].map((item, i) => (
+              <div key={i} className="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                <h4 className="font-bold text-orange-400 text-sm uppercase mb-2">Ámbito {item.title}</h4>
+                <p className="text-slate-400 text-xs leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-    {/* ===== EQUIPO / CTA ===== */}
-<section id="equipo" className="py-24">
-  <div className="max-w-4xl mx-auto px-6 text-center">
-    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold mb-6">
-      <UsersIcon /> Proyecto Integrador
-    </div>
-    <h2 className="text-4xl md:text-5xl font-black mb-4">
-      Construyendo el futuro<br />
-      <span className="text-orange-400">vial de Chiapas</span>
-    </h2>
-    <p className="text-slate-400 max-w-xl mx-auto mb-8">
-      Proyecto Integrador de 3er Ciclo — 9° Cuatrimestre<br />
-      Periodo: <strong className="text-white">Mayo – Agosto 2026</strong>
-    </p>
-    <div className="grid sm:grid-cols-3 gap-4 mb-10 text-sm">
-      {[
-        { label: 'Categoría', value: 'Social / Impacto comunitario' },
-        { label: 'Plataforma', value: 'Android (Flutter)' },
-        { label: 'Backend', value: 'Firebase (Google Cloud)' },
-      ].map((d, i) => (
-        <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4">
-          <div className="text-slate-500 text-xs mb-1">{d.label}</div>
-          <div className="text-white font-semibold">{d.value}</div>
-        </div>
-      ))}
-    </div>
-    
-    {/* Integrantes - versión simple */}
-    <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-      <h3 className="text-xl font-bold mb-4 text-orange-400">Equipo de Desarrollo</h3>
-      <div className="flex flex-wrap justify-center gap-x-8 gap-y-3">
-        {[
-          'Angel Gabriel Garcia Samayoa',
-          'Samuel Morales Rodriguez',
-          'Martin Eduardo Estrada Garcia',
-         
-        ].map((nombre, i) => (
-          <div key={i} className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-            <span className="text-slate-300 text-sm">{nombre}</span>
+      {/* ===== MONETIZACIÓN (SaaS GOBIERNOS) ===== */}
+      <section id="ingresos" className="py-24">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold mb-4">
+              <DollarIcon /> Sustentabilidad Financiera
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black mb-4">Propuesta de Monetización</h2>
+            <p className="text-slate-400 text-sm max-w-xl mx-auto">Esquema de licenciamiento de software orientado a garantizar el mantenimiento técnico del proyecto.</p>
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
+          
+          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-orange-500/30 transition-all duration-300">
+            <div className="flex flex-col md:flex-row gap-6 items-start">
+              <div className="w-12 h-12 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400 text-2xl flex-shrink-0 mx-auto md:mx-0">🏛️</div>
+              <div className="text-center md:text-left flex-1">
+                <h3 className="text-white font-bold text-lg mb-2">Gobernanza SaaS (Gubernamental)</h3>
+                <p className="text-slate-400 text-xs leading-relaxed mb-4">
+                  La plataforma es <strong className="text-white">100% gratuita para la ciudadanía</strong>. Los ingresos se generan mediante un modelo SaaS (Software as a Service) contratado por ayuntamientos municipales y secretarías de obras públicas mediante suscripciones que otorgan acceso al panel de control integral, servidores dedicados en la nube y reportes analíticos de gestión.
+                </p>
+                <div className="grid sm:grid-cols-2 gap-2 text-left text-[11px] text-slate-500">
+                  <div className="flex items-center gap-1">▪ Acceso a Paneles Estadísticos</div>
+                  <div className="flex items-center gap-1">▪ Exportación de Reportes Validados</div>
+                  <div className="flex items-center gap-1">▪ Infraestructura de Nube Firebase</div>
+                  <div className="flex items-center gap-1">▪ Soporte y Actualizaciones Técnicas</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== EQUIPO / TECNOLOGÍAS ===== */}
+      <section className="py-24 border-t border-white/5">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h3 className="text-lg font-bold mb-6">Stack Tecnológico</h3>
+          <div className="flex flex-wrap justify-center gap-2 text-xs text-slate-400 mb-12">
+            {['Flutter / Dart', 'Firebase Firestore', 'Google Maps API'].map(t => (
+              <span key={t} className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl font-mono">{t}</span>
+            ))}
+          </div>
+
+          <div className="bg-white/3 border border-white/5 rounded-2xl p-6 max-w-xl mx-auto">
+            <h4 className="text-sm font-bold mb-4 text-slate-400 uppercase tracking-widest">Equipo de Desarrollo</h4>
+            <div className="grid sm:grid-cols-3 gap-2 text-xs text-slate-300">
+              <div>Angel Gabriel Garcia Samayoa</div>
+              <div>Samuel Morales Rodriguez</div>
+              <div>Martin Eduardo Estrada Garcia</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ===== FOOTER ===== */}
-      <footer id="contacto" className="border-t border-white/5 py-10">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-500 text-sm">
-          <div className="flex items-center gap-2">
-            {/* Logo añadido en el footer */}
-            <img 
-              src="/img/bachii.png" 
-              alt="Bachi Logo" 
-              className="w-6 h-6 rounded-md object-cover"
-            />
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center">
-              <AlertTriangleIcon />
-            </div>
-            <span className="font-bold text-slate-300">Bachi Chiapas</span>
-          </div>
-          <p>Proyecto Integrador · 9° Cuatrimestre · Mayo–Agosto 2026</p>
-          <div className="flex items-center gap-2">
-            <FlameIcon />
-          </div>
-        </div>
+      <footer className="border-t border-white/5 py-8 text-center text-xs text-slate-600">
+        <p>Bachi Chiapas · Proyecto Integrador 9° Cuatrimestre · 2026</p>
       </footer>
     </div>
   )
