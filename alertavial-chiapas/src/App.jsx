@@ -358,8 +358,8 @@ export default function App() {
             <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Objetivos Específicos (Fases de Desarrollo)</h3>
             {[
               'Diseñar e implementar un módulo de registro e inicio de sesión de usuarios mediante correo electrónico o número telefónico.',
-              'Desarrollar un system de reportes con captura fotográfica, categorías de incidencias y geolocalización automática.',
-              'Integrar Google Maps para visualizar reportes activos mediante un mapa interactivo.',
+              'Desarrollar un sistema de reportes con captura fotográfica, categorías de incidencias y geolocalización automática.',
+              'Integrar un Mapa para visualizar reportes activos mediante un mapa interactivo.',
               'Implementar seguimiento del estado de los reportes mediante notificaciones push.',
               'Construir un panel administrativo para la gestión y actualización de reportes.',
               'Realizar pruebas de usabilidad con usuarios reales para validar la funcionalidad de la aplicación.'
@@ -493,14 +493,14 @@ export default function App() {
               <ul className="list-disc list-inside text-xs text-slate-400 space-y-1">
                 <li>Captura de fotografías optimizada para dispositivos móviles.</li>
                 <li>Selección estructurada de categorías de daño vial.</li>
-                <li>Geolocalización automática a través de API nativa del dispositivo.</li>
+                <li>Geolocalización automática a través del dispositivo.</li>
                 <li>Descripción textual opcional y generación automática de folio único de reporte.</li>
               </ul>
             </Accordion>
             <Accordion title="🗺️ Módulo de Mapa Interactivo">
               <ul className="list-disc list-inside text-xs text-slate-400 space-y-1">
                 <li>Visualización de reportes geolocalizados directamente en el mapa.</li>
-                <li>Filtros avanzados organizados por categoría y estado actual.</li>
+                <li>Filtros organizados por categoría y estado actual.</li>
                 <li>Consulta detallada de incidencias y desglose de puntos activos.</li>
               </ul>
             </Accordion>
@@ -551,7 +551,7 @@ export default function App() {
               <div className="text-center md:text-left flex-1">
                 <h3 className="text-white font-bold text-lg mb-2">Gobernanza SaaS (Gubernamental)</h3>
                 <p className="text-slate-400 text-xs leading-relaxed mb-4">
-                  La plataforma es <strong className="text-white">100% gratuita para la ciudadanía</strong>. Los ingresos se generan mediante un modelo SaaS (Software as a Service) contratado por ayuntamientos municipales y secretarías de obras públicas mediante suscripciones que otorgan acceso al panel de control integral, servidores dedicados en la nube y reportes analíticos de gestión.
+                  La plataforma es <strong className="text-white">100% gratuita para la ciudadanía</strong>. Los ingresos se generan mediante un modelo SaaS (Software as a Service) contratado por ayuntamientos municipales y secretarías de obras públicas mediante suscripciones que otorgan acceso al panel de control integral, servidores y reportes de gestión.
                 </p>
                 <div className="grid sm:grid-cols-2 gap-2 text-left text-[11px] text-slate-500">
                   <div className="flex items-center gap-1">▪ Acceso a Paneles Estadísticos</div>
